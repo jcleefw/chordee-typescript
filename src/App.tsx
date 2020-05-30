@@ -1,20 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import styles from "./App.module.scss";
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import styles from './App.module.scss'
 
-import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
-// import SongsList from '../pages/SongsList';
-// import SongView from '../pages/SongView';
-// import NewSong from '../pages/NewSong';
-import NotFoundPage from "./pages/NotFoundPage";
-
-// const routes = {
-//   "/": () => <HomePage />
-//   "/songs": () => <SongsList />,
-//   "/song/:id": ({ id }) => <SongView id={id} />,
-//   "/new-song": () => <NewSong />
-// };
+import Header from './components/Header'
+import HomePage from './pages/HomePage'
 
 const App = () => {
   return (
@@ -29,7 +18,7 @@ const App = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/metronome-app">Metronome App</Link>
           </li>
         </ul>
 
@@ -48,7 +37,7 @@ const App = () => {
         </Switch>
       </div>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

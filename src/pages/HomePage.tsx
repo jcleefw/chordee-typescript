@@ -1,23 +1,14 @@
-import React from "react";
-// import HtmlSongDisplayer from "../components/HtmlSongDiplayer";
-
-const chordSheet = `
-Am         C/G        F          C
-Let it be, let it be, let it be, let it be
-C                G              F  C/E Dm C
-Whisper words of wisdom, let it be`.substring(1);
+import React from 'react'
+import BufferLoader from '../modules/BufferLoader'
+import Metronome from '../modules/Metronome'
 
 const HomePage = () => {
+  const metronome = new Metronome().init(50)
   return (
     <section>
-      <div className="columns">
-        <div className="column">{chordSheet}</div>
-        <div className="column">
-          {/* <HtmlSongDisplayer chordSheet={chordSheet} /> */}
-        </div>
-      </div>
+      <div>Hello</div>
     </section>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
