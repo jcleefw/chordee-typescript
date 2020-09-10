@@ -4,39 +4,27 @@ import styles from './App.module.scss'
 
 import Header from './components/Header'
 import HomePage from './pages/HomePage'
+import Fretboard from './pages/Fretboard'
 
 const App = () => {
   return (
-    <Router>
-      <Header />
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/metronome-app">Metronome App</Link>
-          </li>
-        </ul>
-
-        <hr />
+    <div className="paper">
+      <Router>
+        <Header />
 
         <Switch>
           <Route exact path="/">
             <HomePage />
           </Route>
-          {/* <Route path="/about">
-            <About />
+          <Route path="/fretboard">
+            <Fretboard />
           </Route>
-          <Route path="/dashboard">
+          {/* <Route path="/dashboard">
             <Dashboard />
           </Route> */}
         </Switch>
-      </div>
-    </Router>
+      </Router>
+    </div>
   )
 }
 
