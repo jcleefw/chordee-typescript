@@ -1,10 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import styles from './App.module.scss'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Header from './components/Header'
+import FretboardPage from './pages/FretboardPage'
 import HomePage from './pages/HomePage'
-import Fretboard from './pages/Fretboard'
 
 const App = () => {
   return (
@@ -17,7 +16,7 @@ const App = () => {
             <HomePage />
           </Route>
           <Route path="/fretboard">
-            <Fretboard />
+            <FretboardPage />
           </Route>
           {/* <Route path="/dashboard">
             <Dashboard />
