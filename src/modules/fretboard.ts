@@ -1,12 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import { times, sum, isNil } from 'ramda'
+import { sum, isNil, times } from 'ramda'
+import { TuningShape, notesArray } from '../interfaces/tuning'
 
 export const fretWidth = (nrFrets: number) => (pos: number) =>
   ((2 ** (1 / nrFrets) - 1) / 2 ** ((pos + 1) / nrFrets)) * 100 * 2
 
-export const fretOffset = (nrFrets: any) => (pos: any) =>
+export const fretOffset = (nrFrets: any) => (pos: any) => {
   // (1 - (1 / (2 ** (pos / nrFrets)))) * 100 * 2
-  sum(times(fretWidth(nrFrets), pos))
+  return sum(times(fretWidth(nrFrets), pos))
+}
 
 export const stringHeight = (nrOfStrings: number) => 100 / nrOfStrings
 
@@ -45,3 +47,21 @@ export const ensureLocObjects = (locProps: any[]) =>
           label: locProp.label || '',
         }
   )
+
+export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
+  const rootNoteIndex = notesArray.indexOf(rootNote.note.toLowerCase())
+  let startIndex = rootNoteIndex
+  let finalArray: TuningShape[] = []
+  let octaveCount = rootNote.octave
+
+  times(() => {
+    finalArray.push({ note: notesArray[startIndex], octave: octaveCount })
+    if (startIndex < 12 - 1) {
+      startIndex += 1
+    } else {
+      startIndex = 0
+      octaveCount += 1
+    }
+  }, noFrets)
+  return finalArray
+}

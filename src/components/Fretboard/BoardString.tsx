@@ -30,6 +30,7 @@ interface Props {
   nrOfStrings: number
   nrOfFrets: number
 }
+
 const BoardGraphicStrings: FC<Props> = ({ nrOfStrings, nrOfFrets }) => (
   <g>
     {times(stringLine(nrOfStrings), nrOfStrings)}

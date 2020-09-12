@@ -15,8 +15,10 @@ interface Props {
 }
 
 const tuningNotes = (tuning: TuningShape[]) => {
-  const array = tuning.map(row => `${row.note}${row.octave}`.toUpperCase())
-  return reverse(array)
+  const stringArray = tuning.map(row =>
+    `${row.note}${row.octave}`.toUpperCase()
+  )
+  return reverse(stringArray)
 }
 
 const StringTuningWrapper: FC<Props> = ({ tuning }) => {
