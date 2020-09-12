@@ -50,7 +50,7 @@ export const ensureLocObjects = (locProps: any[]) =>
 
 export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
   const rootNoteIndex = notesArray.indexOf(rootNote.note.toLowerCase())
-  let startIndex = rootNoteIndex
+  let startIndex = rootNoteIndex + 1
   let finalArray: TuningShape[] = []
   let octaveCount = rootNote.octave
 
@@ -64,4 +64,8 @@ export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
     }
   }, noFrets)
   return finalArray
+}
+
+export const stringifyNote = (note: TuningShape) => {
+  return `${note.note}${note.octave}`
 }

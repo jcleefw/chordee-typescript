@@ -1,10 +1,19 @@
 import React, { FC } from 'react'
 import { times, range } from 'ramda'
-import { stringCenter, fretOffset } from '../../modules/fretboard'
+import { stringCenter } from '../../modules/fretboard'
 
 const stringLine = (nrOfStrings: number) => (str: any) => {
   const y = stringCenter(nrOfStrings)(str)
-  return <line key={`str-${str}`} x1="0%" x2="100%" y1={`${y}%`} y2={`${y}%`} />
+  return (
+    <line
+      className={`str str-${str}`}
+      key={`str-${str}`}
+      x1="0%"
+      x2="100%"
+      y1={`${y}%`}
+      y2={`${y}%`}
+    />
+  )
 }
 
 const fretLineBounds = (nrOfStrings: number) => ({
@@ -13,10 +22,11 @@ const fretLineBounds = (nrOfStrings: number) => ({
 })
 const fretLine = (nrOfFrets: number, nrOfStrings: number) => (frt: any) => {
   const { top, bottom } = fretLineBounds(nrOfStrings)
-  const x = fretOffset(nrOfFrets)(frt)
+  const x = (100 / nrOfFrets) * frt
 
   return (
     <line
+      className={`fret fret-${frt}`}
       key={`fret-${frt}`}
       x1={`${x}%`}
       x2={`${x}%`}
@@ -31,11 +41,11 @@ interface Props {
   nrOfFrets: number
 }
 
-const BoardGraphicStrings: FC<Props> = ({ nrOfStrings, nrOfFrets }) => (
+const BoardString: FC<Props> = ({ nrOfStrings, nrOfFrets }) => (
   <g>
     {times(stringLine(nrOfStrings), nrOfStrings)}
     {range(1, nrOfFrets).map(fretLine(nrOfFrets, nrOfStrings))}
   </g>
 )
 
-export default BoardGraphicStrings
+export default BoardString
