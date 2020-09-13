@@ -1,7 +1,6 @@
 import React from 'react'
 import { Scale } from '@tonaljs/tonal'
 import BoardGraphicStrings from 'components/Fretboard/BoardString'
-import styled from 'styled-components'
 import NutGraphicStrings from 'components/Fretboard/NutGraphicString'
 import ViewPort from 'components/Fretboard/ViewPort'
 import SvgHeader from 'components/Fretboard/SvgHeader'

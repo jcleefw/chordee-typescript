@@ -5,9 +5,9 @@ const Header = () => {
   return (
     <nav className="border fixed split-nav row">
       <div className="nav-brand">
-        <h3>
-          <a href="#">Chordee</a>
-        </h3>
+        <h4>
+          <a href="/">Chordee</a>
+        </h4>
       </div>
       <div className="collapsible">
         <label htmlFor="collapsible1">
@@ -24,9 +24,6 @@ const Header = () => {
           </li>
           <li>
             <Link to="/fretboard">Fretboard</Link>
-          </li>
-          <li>
-            <Link to="/metronome-app">Metronome App</Link>
           </li>
         </ul>
       </div>
