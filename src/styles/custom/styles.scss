@@ -1,0 +1,17 @@
+// $no-of-guitar-strings: 6;
+// $no-of-bass-strings: 4;
+// $no-of-ukelele-strings: 4;
+
+// @mixin fretboardHeight($stringNumber, $height) {
+//   height: ($stringNumber * $height);
+// }
+
+// .fretboard-guitar {
+//   &-xlarge {
+//     @include fretboardHeight($no-of-guitar-strings, 40px);
+//   }
+
+//   &-large {
+//     @include fretboardHeight($no-of-guitar-strings, 30px);
+//   }
+// }

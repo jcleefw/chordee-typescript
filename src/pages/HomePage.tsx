@@ -1,13 +1,12 @@
 import React from 'react'
-import BufferLoader from '../modules/BufferLoader'
-import Metronome from '../modules/Metronome'
+import styled from 'styled-components'
+import { PageContainer } from 'components/Container'
 
 const HomePage = () => {
-  const metronome = new Metronome().init(50)
   return (
-    <section>
+    <PageContainer>
       <div>Hello</div>
-    </section>
+    </PageContainer>
   )
 }
 
