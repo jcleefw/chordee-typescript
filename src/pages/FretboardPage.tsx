@@ -10,11 +10,7 @@ import { musicNotes, TuningShape } from 'interfaces/tuning'
 import BoardPosition from 'components/Fretboard/BoardPosition'
 import StringTuningWrapper from 'components/Fretboard/StringTuningWrapper'
 import { fretboardHeight } from 'interfaces/enums'
-
-const Container = styled.div`
-  margin-top: 50px;
-  background-color: white;
-`
+import { PageContainer } from 'components/Container'
 
 const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
@@ -32,7 +28,7 @@ const boardHeight = NO_OF_STRINGS * fretboardHeight.large
 
 const FretboardPage = () => {
   return (
-    <Container className="container container-lg container-xl">
+    <PageContainer className="container container-lg container-xl">
       <div>{Scale.get('D major').notes}</div>
       <Board boardHeight={boardHeight}>
         <SvgHeader>
@@ -51,7 +47,7 @@ const FretboardPage = () => {
           </ViewPort>
         </SvgHeader>
       </Board>
-    </Container>
+    </PageContainer>
   )
 }
 

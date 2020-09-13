@@ -1,10 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
+import { PageContainer } from 'components/Container'
 
 const HomePage = () => {
   return (
-    <section>
+    <PageContainer>
       <div>Hello</div>
-    </section>
+    </PageContainer>
   )
 }
 
