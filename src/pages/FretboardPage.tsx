@@ -42,7 +42,11 @@ const FretboardPage = () => {
               nrOfStrings={NO_OF_STRINGS}
               nrOfFrets={NO_OF_FRETS}
             />
-            <BoardPosition boardHeight={boardHeight} tuning={openE} />
+            <BoardPosition
+              boardHeight={boardHeight}
+              noOfStrings={NO_OF_STRINGS}
+              tuning={openE}
+            />
           </ViewPort>
         </SvgHeader>
       </Board>

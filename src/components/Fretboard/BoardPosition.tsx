@@ -1,14 +1,17 @@
 import React, { FC } from 'react'
 import { TuningShape } from '../../interfaces/tuning'
-import { notesOnStringArray, stringifyNote } from '../../modules/fretboard'
+import { notesOnStringArray } from '../../modules/fretboard'
 import styled from 'styled-components'
 import { reverse } from 'ramda'
 import { fretboardHeight } from 'interfaces/enums'
+import Fret from './Fret'
+import FretRow from './FretRow'
 
 interface Props {
   tuning: TuningShape[]
   showOctave?: boolean
   boardHeight: fretboardHeight
+  noOfStrings: number
 }
 
 const FretsWrapper = styled.div`
@@ -16,55 +19,63 @@ const FretsWrapper = styled.div`
   flex-direction: column;
 `
 
-const FretsRow = styled.div`
-  display: flex;
-  align-items: center;
-`
+const generatFretNotes = (
+  notesArray: TuningShape[],
+  width: number,
+  stringIndex: number,
+  showOctave: boolean
+) => {
+  return notesArray.map((note, index) => (
+    <Fret
+      width={width}
+      note={note}
+      stringIndex={stringIndex}
+      index={index}
+      showOctave={showOctave}
+    />
+  ))
+}
 
-const Fret = styled.div`
-  position: relative;
-  font-size: 0.8rem;
-`
-
-const FretBackground = styled.span`
-  background: white;
-  padding: 0 5px;
-`
+const generateFretRow = (
+  tuning: TuningShape[],
+  boardHeight: number,
+  showOctave: boolean,
+  noOfStrings: number
+) => {
+  return tuning.map((_, stringIndex) => {
+    const notesArray = notesOnStringArray(tuning[stringIndex], 15)
+    const width = 100 / tuning.length
+    const fretNotes = generatFretNotes(
+      notesArray,
+      width,
+      stringIndex,
+      showOctave
+    )
+    return (
+      <FretRow
+        boardHeight={boardHeight}
+        stringIndex={stringIndex}
+        noOfStrings={noOfStrings}
+      >
+        {fretNotes}
+      </FretRow>
+    )
+  })
+}
 
 const BoardPosition: FC<Props> = ({
   tuning,
   showOctave = false,
   boardHeight,
+  noOfStrings,
 }) => {
   const reverseTuning = reverse(tuning)
-  const stringNotesByRow = reverseTuning.map((row, tuningIndex) => {
-    const notesArray = notesOnStringArray(reverseTuning[tuningIndex], 15)
-    const width = 100 / tuning.length
-    const y = boardHeight / 6
-    const fretNotes = notesArray.map((note, index) => {
-      const fretString = showOctave ? stringifyNote(note) : note.note
-
-      return (
-        <Fret
-          className={`fret-note`}
-          style={{ width: `${width}%`, textAlign: 'center' }}
-          key={`note-${tuningIndex}-${index}`}
-          data-note={stringifyNote(note)}
-        >
-          <FretBackground>{fretString.toUpperCase()}</FretBackground>
-        </Fret>
-      )
-    })
-    return (
-      <FretsRow
-        className="fret-row"
-        style={{ height: `${y}px` }}
-        key={`row-${tuningIndex}`}
-      >
-        {fretNotes}
-      </FretsRow>
-    )
-  })
+  const stringNotesByRow = generateFretRow(
+    reverseTuning,
+    boardHeight,
+    showOctave,
+    noOfStrings
+  )
 
   return (
     <foreignObject width="100%" height="100%">
