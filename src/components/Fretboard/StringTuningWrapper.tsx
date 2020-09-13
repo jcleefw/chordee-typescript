@@ -4,14 +4,17 @@ import { TuningShape } from '../../interfaces/tuning'
 import { reverse } from 'ramda'
 
 const TuningDivWrapper = styled.div`
-  margin-top: 12px;
+  margin-top: 4px;
 `
 const TuningNotes = styled.div`
-  font-size: 0.8rem;
-  line-height: 1.05rem;
+  font-size: 0.9rem;
+  color: green;
+  font-family: 'Patrick Hand SC';
+  font-weight: bold;
 `
 interface Props {
   tuning: Array<TuningShape>
+  boardHeight: number
 }
 
 const tuningNotes = (tuning: TuningShape[]) => {
@@ -21,12 +24,17 @@ const tuningNotes = (tuning: TuningShape[]) => {
   return reverse(stringArray)
 }
 
-const StringTuningWrapper: FC<Props> = ({ tuning }) => {
+const StringTuningWrapper: FC<Props> = ({ tuning, boardHeight }) => {
+  const y = boardHeight / tuning.length
   return (
     <foreignObject width="100%" height="100%">
       <TuningDivWrapper>
         {tuningNotes(tuning).map((notes: string, index: number) => {
-          return <TuningNotes key={index}>{notes.toUpperCase()}</TuningNotes>
+          return (
+            <TuningNotes style={{ height: y }} key={index}>
+              {notes.toUpperCase()}
+            </TuningNotes>
+          )
         })}
       </TuningDivWrapper>
     </foreignObject>

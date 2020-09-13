@@ -9,13 +9,15 @@ import Board from 'components/Fretboard/Board'
 import { musicNotes, TuningShape } from 'interfaces/tuning'
 import BoardPosition from 'components/Fretboard/BoardPosition'
 import StringTuningWrapper from 'components/Fretboard/StringTuningWrapper'
+import { fretboardHeight } from 'interfaces/enums'
 
-const Wrapper = styled.div`
+const Container = styled.div`
   margin-top: 50px;
   background-color: white;
 `
 
 const NO_OF_FRETS = 15
+const NO_OF_STRINGS = 6
 
 const openE: Array<TuningShape> = [
   { note: musicNotes.e, octave: 2 },
@@ -26,27 +28,30 @@ const openE: Array<TuningShape> = [
   { note: musicNotes.e, octave: 4 },
 ]
 
+const boardHeight = NO_OF_STRINGS * fretboardHeight.large
+
 const FretboardPage = () => {
   return (
-    <Wrapper>
+    <Container className="container container-lg container-xl">
       <div>{Scale.get('D major').notes}</div>
-      <div className="container">
+      <Board boardHeight={boardHeight}>
         <SvgHeader>
           <ViewPort width={3} offset={0}>
-            <StringTuningWrapper tuning={openE} />
+            <StringTuningWrapper tuning={openE} boardHeight={boardHeight} />
           </ViewPort>
           <ViewPort width={0.75} offset={3}>
-            <NutGraphicStrings nrOfStrings={6} />
+            <NutGraphicStrings nrOfStrings={NO_OF_STRINGS} />
           </ViewPort>
-          <ViewPort width={89} offset={3.75}>
-            <Board>
-              <BoardGraphicStrings nrOfStrings={6} nrOfFrets={NO_OF_FRETS} />
-              <BoardPosition tuning={openE} />
-            </Board>
+          <ViewPort width={95} offset={3.75}>
+            <BoardGraphicStrings
+              nrOfStrings={NO_OF_STRINGS}
+              nrOfFrets={NO_OF_FRETS}
+            />
+            <BoardPosition boardHeight={boardHeight} tuning={openE} />
           </ViewPort>
         </SvgHeader>
-      </div>
-    </Wrapper>
+      </Board>
+    </Container>
   )
 }
 
