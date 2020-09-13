@@ -1,36 +1,44 @@
-import React from 'react'
-import { Scale } from '@tonaljs/tonal'
+import React, { FC, useState } from 'react'
 import Fretboard from 'components/Fretboard/FretBoard'
 import { PageContainer } from 'components/Container'
 import { fretboardHeight } from 'interfaces/enums'
-import { TuningShape, musicNotes } from 'interfaces/tuning'
+import { AlternateTuningProps } from 'interfaces/tuning'
+import Select from 'react-select'
+import { alternateTunings } from 'data/alternateTunings'
 
 const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
 
-const openE: Array<TuningShape> = [
-  { note: musicNotes.e, octave: 2 },
-  { note: musicNotes.a, octave: 2 },
-  { note: musicNotes.d, octave: 3 },
-  { note: musicNotes.g, octave: 3 },
-  { note: musicNotes.b, octave: 3 },
-  { note: musicNotes.e, octave: 4 },
-]
+const generateOptions = (tuningOptions: AlternateTuningProps) => {
+  return Object.keys(tuningOptions).map((key, index) => {
+    return { value: key, label: tuningOptions[key].name }
+  })
+}
 
-const selectedTuning = openE
 const boardHeight = NO_OF_STRINGS * fretboardHeight.large
-const tuning = selectedTuning ? selectedTuning : openE
 const showOctave = true
+const options = generateOptions(alternateTunings)
 
-const FretboardPage = () => {
+const FretboardPage: FC = () => {
+  const [tuning, setTuning] = useState(alternateTunings.standard)
+
+  const onChangeHandler = (e: any) => {
+    setTuning(alternateTunings[e.value])
+  }
   return (
     <PageContainer className="container container-lg container-xl">
-      <div>{Scale.get('D major').notes}</div>
+      <Select
+        options={options}
+        onChange={onChangeHandler}
+        defaultValue={options[0]}
+        className="select"
+      />
+      <br />
       <Fretboard
         boardHeight={boardHeight}
         noOfStrings={NO_OF_STRINGS}
         noOfFrets={NO_OF_FRETS}
-        tuning={tuning}
+        tuning={tuning.tunings}
         showOctave={showOctave}
       />
     </PageContainer>
