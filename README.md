@@ -10,5 +10,3 @@ More info TBA
 
 - build for production
   `yarn build`
-
-## Available Scripts
