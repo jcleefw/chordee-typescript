@@ -4,7 +4,6 @@ import { fretboardHeight } from 'interfaces/enums'
 
 interface Props {
   boardHeight: fretboardHeight
-  stringIndex: number
   children?: ReactElement[]
   noOfStrings: number
 }
@@ -17,17 +16,12 @@ const FretsRow = styled.div`
 export default ({
   noOfStrings,
   boardHeight,
-  stringIndex,
   children,
 }: Props): ReactElement => {
   const rowHeight = boardHeight / noOfStrings
 
   return (
-    <FretsRow
-      className="fret-row"
-      style={{ height: `${rowHeight}px` }}
-      key={`row-${stringIndex}`}
-    >
+    <FretsRow className="fret-row" style={{ height: `${rowHeight}px` }}>
       {children}
     </FretsRow>
   )

@@ -1,15 +1,9 @@
 import React from 'react'
 import { Scale } from '@tonaljs/tonal'
-import BoardGraphicStrings from 'components/Fretboard/BoardString'
-import NutGraphicStrings from 'components/Fretboard/NutGraphicString'
-import ViewPort from 'components/Fretboard/ViewPort'
-import SvgHeader from 'components/Fretboard/SvgHeader'
-import Board from 'components/Fretboard/Board'
-import { musicNotes, TuningShape } from 'interfaces/tuning'
-import BoardPosition from 'components/Fretboard/BoardPosition'
-import StringTuningWrapper from 'components/Fretboard/StringTuningWrapper'
-import { fretboardHeight } from 'interfaces/enums'
+import Fretboard from 'components/Fretboard/FretBoard'
 import { PageContainer } from 'components/Container'
+import { fretboardHeight } from 'interfaces/enums'
+import { TuningShape, musicNotes } from 'interfaces/tuning'
 
 const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
@@ -23,33 +17,22 @@ const openE: Array<TuningShape> = [
   { note: musicNotes.e, octave: 4 },
 ]
 
+const selectedTuning = openE
 const boardHeight = NO_OF_STRINGS * fretboardHeight.large
+const tuning = selectedTuning ? selectedTuning : openE
+const showOctave = true
 
 const FretboardPage = () => {
   return (
     <PageContainer className="container container-lg container-xl">
       <div>{Scale.get('D major').notes}</div>
-      <Board boardHeight={boardHeight}>
-        <SvgHeader>
-          <ViewPort width={3} offset={0}>
-            <StringTuningWrapper tuning={openE} boardHeight={boardHeight} />
-          </ViewPort>
-          <ViewPort width={0.75} offset={3}>
-            <NutGraphicStrings nrOfStrings={NO_OF_STRINGS} />
-          </ViewPort>
-          <ViewPort width={95} offset={3.75}>
-            <BoardGraphicStrings
-              nrOfStrings={NO_OF_STRINGS}
-              nrOfFrets={NO_OF_FRETS}
-            />
-            <BoardPosition
-              boardHeight={boardHeight}
-              noOfStrings={NO_OF_STRINGS}
-              tuning={openE}
-            />
-          </ViewPort>
-        </SvgHeader>
-      </Board>
+      <Fretboard
+        boardHeight={boardHeight}
+        noOfStrings={NO_OF_STRINGS}
+        noOfFrets={NO_OF_FRETS}
+        tuning={tuning}
+        showOctave={showOctave}
+      />
     </PageContainer>
   )
 }

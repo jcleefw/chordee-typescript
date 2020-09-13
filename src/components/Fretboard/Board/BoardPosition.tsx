@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { TuningShape } from '../../interfaces/tuning'
-import { notesOnStringArray } from '../../modules/fretboard'
+import { TuningShape } from '../../../interfaces/tuning'
+import { notesOnStringArray } from '../../../modules/fretboard'
 import styled from 'styled-components'
 import { reverse } from 'ramda'
 import { fretboardHeight } from 'interfaces/enums'
-import Fret from './Fret'
-import FretRow from './FretRow'
+import Fret from '../Fret'
+import FretRow from '../FretRow'
 
 interface Props {
   tuning: TuningShape[]
@@ -29,8 +29,7 @@ const generatFretNotes = (
     <Fret
       width={width}
       note={note}
-      stringIndex={stringIndex}
-      index={index}
+      key={`note-${stringIndex}-${index}`}
       showOctave={showOctave}
     />
   ))
@@ -54,8 +53,8 @@ const generateFretRow = (
     return (
       <FretRow
         boardHeight={boardHeight}
-        stringIndex={stringIndex}
         noOfStrings={noOfStrings}
+        key={`row-${stringIndex}`}
       >
         {fretNotes}
       </FretRow>
