@@ -1,3 +1,4 @@
 yarn-*.log
 node_modules
 src/dist
+build
