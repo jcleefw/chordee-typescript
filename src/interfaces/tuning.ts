@@ -29,3 +29,10 @@ export interface TuningShape {
   sharp?: boolean
   flat?: boolean
 }
+
+export interface AlternateTuningProps {
+  [x: string]: {
+    name: string
+    tunings: TuningShape[]
+  }
+}

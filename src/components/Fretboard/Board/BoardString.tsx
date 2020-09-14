@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { times, range } from 'ramda'
-import { stringCenter } from '../../modules/fretboard'
+import { stringCenter } from 'modules/fretboard'
 
 const stringLine = (nrOfStrings: number) => (str: any) => {
   const y = stringCenter(nrOfStrings)(str)
