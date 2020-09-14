@@ -1,15 +1,20 @@
+import { Key } from '@tonaljs/tonal'
 import { alternateTunings } from 'data/alternateTunings'
-import { AlternateTuningProps } from 'interfaces/tuning'
+import { AlternateTuningProps, notesArray } from 'interfaces/tuning'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import styled from 'styled-components'
 
 const Container = styled.div`
   margin-bottom: 1rem;
+  display: flex;
+  > .select {
+    width: 100%;
+  }
 `
 
 interface Props {
-  onTuningChangeHandler: (e: any) => void
+  setTuning: (e: any) => void
 }
 
 const generateOptions = (tuningOptions: AlternateTuningProps) => {
@@ -18,14 +23,32 @@ const generateOptions = (tuningOptions: AlternateTuningProps) => {
   })
 }
 
-const PageHeader: FC<Props> = ({ onTuningChangeHandler }) => {
-  const options = generateOptions(alternateTunings)
+const onTuningChange = (e: any, setTuning: any) => {
+  setTuning(alternateTunings[e.value])
+}
+
+const onKeyChange = (e: any) => {
+  const keyArray = Key.majorKey(e.value)
+  console.log(keyArray)
+}
+
+const PageHeader: FC<Props> = ({ setTuning }) => {
+  const tuningOptions = generateOptions(alternateTunings)
+  const musicKey = notesArray.map((note: string) => {
+    return { value: note, label: note.toUpperCase() }
+  })
+
   return (
     <Container>
       <Select
-        options={options}
-        onChange={onTuningChangeHandler}
-        defaultValue={options[0]}
+        options={tuningOptions}
+        onChange={e => onTuningChange(e, setTuning)}
+        defaultValue={tuningOptions[0]}
+        className="select"
+      />
+      <Select
+        options={musicKey}
+        onChange={e => onKeyChange(e)}
         className="select"
       />
     </Container>
