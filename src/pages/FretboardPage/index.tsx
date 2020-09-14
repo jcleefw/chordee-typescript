@@ -10,13 +10,13 @@ const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
 
 const generateOptions = (tuningOptions: AlternateTuningProps) => {
-  return Object.keys(tuningOptions).map((key, index) => {
+  return Object.keys(tuningOptions).map(key => {
     return { value: key, label: tuningOptions[key].name }
   })
 }
 
 const boardHeight = NO_OF_STRINGS * fretboardHeight.large
-const showOctave = true
+const showOctave = false
 const options = generateOptions(alternateTunings)
 
 const FretboardPage: FC = () => {
