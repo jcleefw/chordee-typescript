@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import React, { FC } from 'react'
 import { TuningShape } from '../../interfaces/tuning'
 import { reverse } from 'ramda'
+import { stringifyNote } from '../../modules/fretboard'
 
 const TuningDivWrapper = styled.div`
   margin-top: 4px;
@@ -18,9 +19,7 @@ interface Props {
 }
 
 const tuningNotes = (tuning: TuningShape[]) => {
-  const stringArray = tuning.map(row =>
-    `${row.note}${row.octave}`.toUpperCase()
-  )
+  const stringArray = tuning.map(row => stringifyNote(row, true).toUpperCase())
   return reverse(stringArray)
 }
 

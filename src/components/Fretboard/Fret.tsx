@@ -20,7 +20,7 @@ const FretBackground = styled.span`
 `
 
 export default ({ width, note, showOctave }: Props): ReactElement => {
-  const fretString = showOctave ? stringifyNote(note) : note.note
+  const fretString = stringifyNote(note, showOctave)
 
   return (
     <Fret
