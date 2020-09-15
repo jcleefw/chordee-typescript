@@ -15,6 +15,7 @@ const Container = styled.div`
 
 interface Props {
   setTuning: (e: any) => void
+  setKey: (e: any) => void
 }
 
 const generateOptions = (tuningOptions: AlternateTuningProps) => {
@@ -27,16 +28,15 @@ const onTuningChange = (e: any, setTuning: any) => {
   setTuning(alternateTunings[e.value])
 }
 
-const onKeyChange = (e: any) => {
-  const keyArray = Key.majorKey(e.value)
-  console.log(keyArray)
-}
-
-const PageHeader: FC<Props> = ({ setTuning }) => {
+const PageHeader: FC<Props> = ({ setTuning, setKey }) => {
   const tuningOptions = generateOptions(alternateTunings)
   const musicKey = notesArray.map((note: string) => {
     return { value: note, label: note.toUpperCase() }
   })
+
+  const onKeyChange = (e: any, setKey: any) => {
+    setKey(Key.majorKey(e.value))
+  }
 
   return (
     <Container>
@@ -48,7 +48,7 @@ const PageHeader: FC<Props> = ({ setTuning }) => {
       />
       <Select
         options={musicKey}
-        onChange={e => onKeyChange(e)}
+        onChange={e => onKeyChange(e, setKey)}
         className="select"
       />
     </Container>

@@ -1,4 +1,4 @@
-import React, { FC, ReactNodeArray, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import Fretboard from 'components/Fretboard/FretBoard'
 import { PageContainer } from 'components/Container'
 import { fretboardHeight } from 'interfaces/enums'
@@ -12,12 +12,18 @@ const NO_OF_STRINGS = 6
 const boardHeight = NO_OF_STRINGS * fretboardHeight.large
 const showOctave = false
 
+interface TonalKey {
+  [x: string]: any
+}
+
 const FretboardPage: FC = () => {
   const [tuning, setTuning] = useState(alternateTunings.standard)
+  const [key, setKey] = useState<TonalKey>({})
 
   return (
     <PageContainer className="container container-lg container-xl">
-      <PageHeader setTuning={setTuning} />
+      <PageHeader setTuning={setTuning} setKey={setKey} />
+      {!isEmpty(key) && <div>Notes on scale are: {key.scale}</div>}
       <Fretboard
         boardHeight={boardHeight}
         noOfStrings={NO_OF_STRINGS}
