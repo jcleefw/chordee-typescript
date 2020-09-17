@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { sum, isNil, times } from 'ramda'
-import { TuningShape, notesArray } from '../interfaces/tuning'
+import { TuningShape, notesArray, HighlightStatus } from '../interfaces/tuning'
 import { TonalKey } from 'interfaces/tonal'
 
 export const fretWidth = (nrFrets: number) => (pos: number) =>
@@ -18,6 +18,20 @@ export const stringOffset = (nrOfStrings: any) => (str: number) =>
 
 export const stringCenter = (nrOfStrings: any) => (str: any) =>
   stringOffset(nrOfStrings)(str) + stringHeight(nrOfStrings) / 2
+
+export const populateHighlightStatus = (
+  scale: Array<string>,
+  currentNote: string
+) => {
+  const indexOfNote = scale?.indexOf(currentNote.toUpperCase())
+  if (indexOfNote === 0) {
+    return HighlightStatus.root
+  } else if (indexOfNote > 0) {
+    return HighlightStatus.scale
+  } else {
+    return null
+  }
+}
 
 export const notesOnStringArray = (props: {
   rootNote: TuningShape
@@ -38,7 +52,7 @@ export const notesOnStringArray = (props: {
     finalArray.push({
       note: currentNote,
       octave: octaveCount,
-      selected: tonalKey?.tonic?.toLowerCase() === currentNote,
+      highlight: populateHighlightStatus(tonalKey?.scale, currentNote),
     })
   }
 

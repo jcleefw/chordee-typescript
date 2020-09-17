@@ -27,7 +27,11 @@ export default ({ width, note, showOctave }: Props): ReactElement => {
 
   return (
     <Fret
-      className={cx('fret-note', { ['fret-note-selected']: note.selected })}
+      className={cx('fret-note', {
+        ['--highlight']: note.highlight,
+        ['--root']: note.highlight === 'root',
+        ['--scale']: note.highlight === 'scale',
+      })}
       style={{ width: `${width}%` }}
       data-note={stringifyNote(note)}
     >

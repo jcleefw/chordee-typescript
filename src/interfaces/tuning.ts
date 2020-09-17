@@ -23,12 +23,17 @@ export const notesArray = [
   'g#',
 ]
 
+export enum HighlightStatus {
+  root = 'root',
+  scale = 'scale',
+}
+
 export interface TuningShape {
   note: string
   octave: number
   sharp?: boolean
   flat?: boolean
-  selected?: boolean
+  highlight?: HighlightStatus | null
 }
 
 export interface AlternateTuningProps {
