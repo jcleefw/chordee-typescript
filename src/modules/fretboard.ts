@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { sum, isNil, times } from 'ramda'
 import { TuningShape, notesArray } from '../interfaces/tuning'
+import { TonalKey } from 'interfaces/tonal'
 
 export const fretWidth = (nrFrets: number) => (pos: number) =>
   ((2 ** (1 / nrFrets) - 1) / 2 ** ((pos + 1) / nrFrets)) * 100 * 2
@@ -18,37 +19,12 @@ export const stringOffset = (nrOfStrings: any) => (str: number) =>
 export const stringCenter = (nrOfStrings: any) => (str: any) =>
   stringOffset(nrOfStrings)(str) + stringHeight(nrOfStrings) / 2
 
-export const ensureNoteObjects = (noteProps: any[]) =>
-  noteProps.map((noteProp: { note: any; status: any; label: any }) =>
-    typeof noteProp === 'string'
-      ? {
-          note: noteProp,
-          status: 'selected',
-          label: noteProp,
-        }
-      : {
-          note: noteProp.note,
-          status: noteProp.status || 'selected',
-          label: noteProp.label || noteProp.note,
-        }
-  )
-
-export const ensureLocObjects = (locProps: any[]) =>
-  locProps.map((locProp: { str: any; loc: any; status: any; label: any }) =>
-    !isNil(locProp.str)
-      ? {
-          loc: locProp,
-          status: 'selected',
-          label: '',
-        }
-      : {
-          loc: locProp.loc,
-          status: locProp.status || 'selected',
-          label: locProp.label || '',
-        }
-  )
-
-export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
+export const notesOnStringArray = (props: {
+  rootNote: TuningShape
+  noFrets: number
+  tonalKey?: TonalKey
+}) => {
+  const { rootNote, noFrets, tonalKey } = props
   const rootNoteIndex = notesArray.indexOf(
     stringifyNote(rootNote).toLowerCase()
   )
@@ -57,8 +33,17 @@ export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
   let finalArray: TuningShape[] = []
   let octaveCount = rootNote.octave
 
+  const addToArray = (startIndex: number, octaveCount: number) => {
+    const currentNote = notesArray[startIndex]
+    finalArray.push({
+      note: currentNote,
+      octave: octaveCount,
+      selected: tonalKey?.tonic?.toLowerCase() === currentNote,
+    })
+  }
+
   times(() => {
-    finalArray.push({ note: notesArray[startIndex], octave: octaveCount })
+    addToArray(startIndex, octaveCount)
     if (startIndex < 12 - 1) {
       startIndex += 1
     } else {
@@ -66,6 +51,7 @@ export const notesOnStringArray = (rootNote: TuningShape, noFrets: number) => {
       octaveCount += 1
     }
   }, noFrets)
+
   return finalArray
 }
 

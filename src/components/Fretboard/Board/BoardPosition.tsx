@@ -42,7 +42,7 @@ const generateFretRow = (
   boardHeight: number,
   showOctave: boolean,
   noOfStrings: number,
-  tonalKey: TonalKey | undefined
+  tonalKey?: TonalKey
 ) => {
   return tuning.map((_, stringIndex) => {
     const notesArray = notesOnStringArray({

@@ -28,6 +28,7 @@ export interface TuningShape {
   octave: number
   sharp?: boolean
   flat?: boolean
+  selected?: boolean
 }
 
 export interface AlternateTuningProps {

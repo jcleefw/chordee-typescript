@@ -12,6 +12,7 @@ interface Props {
 const Fret = styled.div`
   position: relative;
   font-size: 0.8rem;
+  text-align: center;
 `
 
 const FretBackground = styled.span`
@@ -25,7 +26,7 @@ export default ({ width, note, showOctave }: Props): ReactElement => {
   return (
     <Fret
       className={`fret-note`}
-      style={{ width: `${width}%`, textAlign: 'center' }}
+      style={{ width: `${width}%` }}
       data-note={stringifyNote(note)}
     >
       <FretBackground>{fretString.toUpperCase()}</FretBackground>
