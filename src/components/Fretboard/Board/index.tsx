@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { TuningShape } from 'interfaces/tuning'
 import BoardPosition from './BoardPosition'
 import BoardGraphicStrings from './BoardString'
+import { TonalKey } from 'interfaces/tonal'
 
 interface Props {
   noOfStrings: number
@@ -9,6 +10,7 @@ interface Props {
   boardHeight: number
   tuning: TuningShape[]
   showOctave: boolean
+  tonalKey?: TonalKey
 }
 
 export default ({
@@ -17,6 +19,7 @@ export default ({
   boardHeight,
   tuning,
   showOctave,
+  tonalKey,
 }: Props): ReactElement => {
   return (
     <>
@@ -26,6 +29,7 @@ export default ({
         noOfStrings={noOfStrings}
         tuning={tuning}
         showOctave={showOctave}
+        tonalKey={tonalKey}
       />
     </>
   )
