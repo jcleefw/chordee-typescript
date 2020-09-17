@@ -15,3 +15,18 @@
 //     @include fretboardHeight($no-of-guitar-strings, 30px);
 //   }
 // }
+
+.fret-note-selected {
+  position: relative;
+
+  span {
+    background: tomato;
+    border-radius: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
+}

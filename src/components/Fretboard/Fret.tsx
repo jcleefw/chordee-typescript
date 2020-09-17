@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { TuningShape } from '../../interfaces/tuning'
 import { stringifyNote } from '../../modules/fretboard'
 import styled from 'styled-components'
+import cx from 'classnames'
 
 interface Props {
   width: number
@@ -12,12 +13,13 @@ interface Props {
 const Fret = styled.div`
   position: relative;
   font-size: 0.8rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 `
 
 const FretBackground = styled.span`
   background: white;
-  padding: 0 5px;
+  padding: 5px;
 `
 
 export default ({ width, note, showOctave }: Props): ReactElement => {
@@ -25,7 +27,7 @@ export default ({ width, note, showOctave }: Props): ReactElement => {
 
   return (
     <Fret
-      className={`fret-note`}
+      className={cx('fret-note', { ['fret-note-selected']: note.selected })}
       style={{ width: `${width}%` }}
       data-note={stringifyNote(note)}
     >
