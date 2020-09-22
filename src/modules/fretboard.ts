@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { sum, isNil, times } from 'ramda'
+import { sum, times } from 'ramda'
 import { TuningShape, notesArray, HighlightStatus } from '../interfaces/tuning'
 import { TonalKey } from 'interfaces/tonal'
 

@@ -34,12 +34,14 @@ const FretBoard: FC<Props> = ({
       </ViewPort>
       <ViewPort width={95} offset={3.75}>
         <Board
-          noOfFrets={noOfFrets}
-          noOfStrings={noOfStrings}
-          tuning={tuning}
-          boardHeight={boardHeight}
-          showOctave={showOctave}
-          tonalKey={tonalKey}
+          {...{
+            boardHeight,
+            tuning,
+            noOfStrings,
+            noOfFrets,
+            showOctave,
+            tonalKey,
+          }}
         />
       </ViewPort>
     </SvgWrapper>

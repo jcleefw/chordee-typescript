@@ -1,19 +1,6 @@
 $orange: #ffc47ff7;
 $green: #94e594;
 
-.--highlight {
-  position: relative;
-
-  span {
-    border-radius: 1.5rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-  }
-}
-
 .--root span {
   background: $orange;
 }
