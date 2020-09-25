@@ -39,9 +39,7 @@ export const notesOnStringArray = (props: {
   tonalKey?: TonalKey
 }) => {
   const { rootNote, noFrets, tonalKey } = props
-  const rootNoteIndex = notesArray.indexOf(
-    stringifyNote(rootNote).toLowerCase()
-  )
+  const rootNoteIndex = notesArray.indexOf(stringifyNote(rootNote))
 
   let startIndex = rootNoteIndex + 1
   let finalArray: TuningShape[] = []
