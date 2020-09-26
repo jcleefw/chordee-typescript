@@ -4,6 +4,7 @@ import { AlternateTuningProps, notesArray } from 'interfaces/tuning'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import styled from 'styled-components'
+import { convertTonalScaleIfNeeded } from 'modules/tonalHelper'
 
 const Container = styled.div`
   margin-bottom: 1rem;
@@ -35,7 +36,11 @@ const PageHeader: FC<Props> = ({ setTuning, setKey }) => {
   })
 
   const onKeyChange = (e: any, setKey: any) => {
-    setKey(Key.majorKey(e.value))
+    const tonalKey = Key.majorKey(e.value)
+    setKey({
+      ...tonalKey,
+      convertedScale: convertTonalScaleIfNeeded(tonalKey.scale),
+    })
   }
 
   return (

@@ -33,31 +33,35 @@ export const populateHighlightStatus = (
   }
 }
 
+const addToArray = (
+  startIndex: number,
+  octaveCount: number,
+  tonalScale: Array<string>
+) => {
+  const currentNote: string = notesArray[startIndex]
+
+  return {
+    note: currentNote,
+    octave: octaveCount,
+    highlight: populateHighlightStatus(tonalScale, currentNote),
+  }
+}
+
 export const notesOnStringArray = (props: {
   rootNote: TuningShape
   noFrets: number
   tonalKey?: TonalKey
 }) => {
   const { rootNote, noFrets, tonalKey } = props
-  const rootNoteIndex = notesArray.indexOf(
-    stringifyNote(rootNote).toLowerCase()
-  )
+  const rootNoteIndex = notesArray.indexOf(stringifyNote(rootNote))
+  const tonalScale = tonalKey?.convertedScale
 
   let startIndex = rootNoteIndex + 1
-  let finalArray: TuningShape[] = []
   let octaveCount = rootNote.octave
-
-  const addToArray = (startIndex: number, octaveCount: number) => {
-    const currentNote = notesArray[startIndex]
-    finalArray.push({
-      note: currentNote,
-      octave: octaveCount,
-      highlight: populateHighlightStatus(tonalKey?.scale, currentNote),
-    })
-  }
+  let finalArray: TuningShape[] = []
 
   times(() => {
-    addToArray(startIndex, octaveCount)
+    finalArray.push(addToArray(startIndex, octaveCount, tonalScale))
     if (startIndex < 12 - 1) {
       startIndex += 1
     } else {

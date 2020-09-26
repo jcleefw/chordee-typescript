@@ -8,6 +8,7 @@ interface Props {
   width: number
   note: TuningShape
   showOctave: boolean
+  index: number
 }
 
 type FretProp = {
@@ -32,13 +33,14 @@ const Fret = styled.div<FretProp>`
     }
   }
 `
-
 const FretBackground = styled.span`
   background: white;
   padding: 5px;
+  z-index: 6;
 `
+const fretMarking = [3, 5, 7, 9, 12, 15, 17]
 
-export default ({ width, note, showOctave }: Props): ReactElement => {
+export default ({ width, note, showOctave, index }: Props): ReactElement => {
   const fretString = stringifyNote(note, showOctave)
 
   return (
@@ -47,6 +49,7 @@ export default ({ width, note, showOctave }: Props): ReactElement => {
         '--highlight': note.highlight,
         '--root': note.highlight === 'root',
         '--scale': note.highlight === 'scale',
+        '--fret-mark': fretMarking.includes(index + 1),
       })}
       style={{ width: `${width}%` }}
       data-note={stringifyNote(note)}
