@@ -1,6 +1,7 @@
 import { Key } from '@tonaljs/tonal'
 import { alternateTunings } from 'data/alternateTunings'
 import { AlternateTuningProps, notesArray } from 'interfaces/tuning'
+import { convertTonalScaleIfNeeded } from 'modules/fretboard'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import styled from 'styled-components'
@@ -35,7 +36,11 @@ const PageHeader: FC<Props> = ({ setTuning, setKey }) => {
   })
 
   const onKeyChange = (e: any, setKey: any) => {
-    setKey(Key.majorKey(e.value))
+    const tonalKey = Key.majorKey(e.value)
+    setKey({
+      ...tonalKey,
+      convertedScale: convertTonalScaleIfNeeded(tonalKey.scale),
+    })
   }
 
   return (
