@@ -1,10 +1,10 @@
 import { Key } from '@tonaljs/tonal'
 import { alternateTunings } from 'data/alternateTunings'
 import { AlternateTuningProps, notesArray } from 'interfaces/tuning'
-import { convertTonalScaleIfNeeded } from 'modules/fretboard'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import styled from 'styled-components'
+import { convertTonalScaleIfNeeded } from 'modules/tonalHelper'
 
 const Container = styled.div`
   margin-bottom: 1rem;
