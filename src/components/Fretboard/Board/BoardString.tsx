@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { times, range } from 'ramda'
 import { stringCenter } from 'modules/fretboard'
+import cx from 'classnames'
 
 const stringLine = (nrOfStrings: number) => (str: any) => {
   const y = stringCenter(nrOfStrings)(str)
@@ -26,7 +27,7 @@ const fretLine = (nrOfFrets: number, nrOfStrings: number) => (frt: any) => {
 
   return (
     <line
-      className={`fret fret-${frt}`}
+      className={cx(`fret fret-${frt}`)}
       key={`fret-${frt}`}
       x1={`${x}%`}
       x2={`${x}%`}

@@ -5,6 +5,7 @@ import StringTuningWrapper from './StringTuningWrapper'
 import NutGraphicStrings from './NutGraphicString'
 import SvgWrapper from './SvgWrapper'
 import Board from './Board'
+import { TonalKey } from 'interfaces/tonal'
 
 interface Props {
   noOfStrings: number
@@ -12,6 +13,7 @@ interface Props {
   boardHeight: number
   tuning: TuningShape[]
   showOctave: boolean
+  tonalKey?: TonalKey
 }
 
 const FretBoard: FC<Props> = ({
@@ -20,6 +22,7 @@ const FretBoard: FC<Props> = ({
   noOfStrings,
   noOfFrets,
   showOctave,
+  tonalKey,
 }) => (
   <div className="board" style={{ height: `${boardHeight}px` }}>
     <SvgWrapper>
@@ -31,11 +34,14 @@ const FretBoard: FC<Props> = ({
       </ViewPort>
       <ViewPort width={95} offset={3.75}>
         <Board
-          noOfFrets={noOfFrets}
-          noOfStrings={noOfStrings}
-          tuning={tuning}
-          boardHeight={boardHeight}
-          showOctave={showOctave}
+          {...{
+            boardHeight,
+            tuning,
+            noOfStrings,
+            noOfFrets,
+            showOctave,
+            tonalKey,
+          }}
         />
       </ViewPort>
     </SvgWrapper>

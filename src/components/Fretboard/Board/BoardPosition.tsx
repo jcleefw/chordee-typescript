@@ -6,12 +6,14 @@ import { reverse } from 'ramda'
 import { fretboardHeight } from 'interfaces/enums'
 import Fret from '../Fret'
 import FretRow from '../FretRow'
+import { TonalKey } from 'interfaces/tonal'
 
 interface Props {
   tuning: TuningShape[]
   showOctave?: boolean
   boardHeight: fretboardHeight
   noOfStrings: number
+  tonalKey?: TonalKey
 }
 
 const FretsWrapper = styled.div`
@@ -39,10 +41,15 @@ const generateFretRow = (
   tuning: TuningShape[],
   boardHeight: number,
   showOctave: boolean,
-  noOfStrings: number
+  noOfStrings: number,
+  tonalKey?: TonalKey
 ) => {
   return tuning.map((_, stringIndex) => {
-    const notesArray = notesOnStringArray(tuning[stringIndex], 15)
+    const notesArray = notesOnStringArray({
+      rootNote: tuning[stringIndex],
+      noFrets: 15,
+      tonalKey: tonalKey,
+    })
     const width = 100 / tuning.length
     const fretNotes = generatFretNotes(
       notesArray,
@@ -67,13 +74,15 @@ const BoardPosition: FC<Props> = ({
   showOctave = false,
   boardHeight,
   noOfStrings,
+  tonalKey,
 }) => {
   const reverseTuning = reverse(tuning)
   const stringNotesByRow = generateFretRow(
     reverseTuning,
     boardHeight,
     showOctave,
-    noOfStrings
+    noOfStrings,
+    tonalKey
   )
 
   return (
