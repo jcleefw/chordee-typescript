@@ -33,6 +33,7 @@ const generatFretNotes = (
       note={note}
       key={`note-${stringIndex}-${index}`}
       showOctave={showOctave}
+      index={index}
     />
   ))
 }
