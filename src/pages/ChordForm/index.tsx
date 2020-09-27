@@ -58,7 +58,6 @@ const ChordForm = () => {
         noOfFrets={15}
         tuning={alternateTunings.standard.tunings}
         showOctave={true}
-        clickable={true}
       />
       <FormRow>{generateFormField(6)}</FormRow>
     </PageContainer>

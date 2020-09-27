@@ -26,6 +26,7 @@ export const notesArray = [
 export enum HighlightStatus {
   root = 'root',
   scale = 'scale',
+  selected = 'selected',
 }
 
 export interface TuningShape {

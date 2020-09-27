@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import { fretboardHeight } from 'interfaces/enums'
 
@@ -9,26 +9,27 @@ interface Props {
   stringIndex: number
 }
 
-const FretsRow = styled.div`
+const FretsRowDiv = styled.div`
   display: flex;
   align-items: center;
 `
 
-export default ({
+const FretsRow: FC<Props> = ({
   noOfStrings,
   boardHeight,
   children,
   stringIndex,
-}: Props): ReactElement => {
+}) => {
   const rowHeight = boardHeight / noOfStrings
 
   return (
-    <FretsRow
+    <FretsRowDiv
       className="fret-row"
       data-row={stringIndex}
       style={{ height: `${rowHeight}px` }}
     >
       {children}
-    </FretsRow>
+    </FretsRowDiv>
   )
 }
+export default FretsRow

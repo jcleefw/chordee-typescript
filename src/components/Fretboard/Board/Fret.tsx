@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
-import { TuningShape } from '../../../interfaces/tuning'
+import React, { FC, useState } from 'react'
+import { HighlightStatus, TuningShape } from '../../../interfaces/tuning'
 import { stringifyNote } from '../../../modules/fretboard'
 import styled from 'styled-components'
 import cx from 'classnames'
@@ -15,7 +15,7 @@ type FretProp = {
   highlight: any
 }
 
-const Fret = styled.div<FretProp>`
+const FretDiv = styled.div<FretProp>`
   position: relative;
   font-size: 0.8rem;
   display: flex;
@@ -40,23 +40,33 @@ const FretBackground = styled.span`
 `
 const fretMarking = [3, 5, 7, 9, 12, 15, 17]
 
-export default ({ width, note, showOctave, index }: Props): ReactElement => {
+const Fret: FC<Props> = ({
+  width,
+  note,
+  showOctave,
+  index,
+}) => {
   const fretString = stringifyNote(note, showOctave)
 
+  const noteDetails = note
+
   return (
-    <Fret
+    <FretDiv
       className={cx('fret-note', {
-        '--highlight': note.highlight,
-        '--root': note.highlight === 'root',
-        '--scale': note.highlight === 'scale',
+        '--highlight': noteDetails.highlight,
+        '--root': noteDetails.highlight === 'root',
+        '--scale': noteDetails.highlight === 'scale',
+        '--selected': noteDetails.highlight === 'selected',
         '--fret-mark': fretMarking.includes(index + 1),
       })}
       style={{ width: `${width}%` }}
-      data-note={stringifyNote(note)}
-      data-octave={note.octave}
-      highlight={note.highlight}
+      data-note={stringifyNote(noteDetails)}
+      data-octave={noteDetails.octave}
+      data-fret-index={index}
+      highlight={noteDetails.highlight}
     >
       <FretBackground>{fretString.toUpperCase()}</FretBackground>
-    </Fret>
+    </FretDiv>
   )
 }
+export default Fret
