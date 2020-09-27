@@ -1,21 +1,17 @@
 import React, { FC, useState, useEffect } from 'react'
-import { HighlightStatus, TuningShape } from '../../../interfaces/tuning'
-import { generateNotesArray } from '../../../modules/fretboard'
+import { TuningShape } from '../../../interfaces/tuning'
 import styled from 'styled-components'
-import { reverse } from 'ramda'
 import { fretboardHeight } from 'interfaces/enums'
 import Fret from './Fret'
 import FretRow from './FretRow'
-import { TonalKey } from 'interfaces/tonal'
 
 interface Props {
   tuning: TuningShape[]
   showOctave?: boolean
   boardHeight: fretboardHeight
   noOfStrings: number
-  noOfFrets: number
-  tonalKey?: TonalKey
-  clickable?: boolean
+  onClickHandler?: (e: any) => void
+  calculatedArray: any
 }
 
 const FretsWrapper = styled.div`
@@ -26,7 +22,7 @@ const FretsWrapper = styled.div`
 const generateElements = (props: any) => {
   const width = 100 / props.tuningLength
 
-  return props.fretRowArray.map((row: any, stringIndex: number) => {
+  return props.calculatedArray.map((row: any, stringIndex: number) => {
     return (
       <FretRow
         boardHeight={props.boardHeight}
@@ -56,27 +52,12 @@ const BoardPosition: FC<Props> = ({
   showOctave = false,
   boardHeight,
   noOfStrings,
-  noOfFrets,
-  tonalKey,
-  clickable = false,
+  onClickHandler,
+  calculatedArray,
 }) => {
-  const reverseTuning = reverse(tuning)
-  let calculatedArray = generateNotesArray(reverseTuning, noOfFrets, tonalKey)
-
-  const onClickHandler = (e: any) => {
-    if (!clickable) return null
-    const selectedNote = e.currentTarget.dataset
-    const selectedString = e.currentTarget.parentElement.dataset
-    const clonedArray = [...fretRowArray]
-    clonedArray[selectedString.row][selectedNote.fretIndex].highlight =
-      HighlightStatus.selected
-    setFretRowArray(clonedArray)
-  }
-
-  const [fretRowArray, setFretRowArray] = useState(calculatedArray)
   const [elements, setElements] = useState(
     generateElements({
-      fretRowArray,
+      calculatedArray,
       boardHeight,
       noOfStrings,
       showOctave,
@@ -88,7 +69,7 @@ const BoardPosition: FC<Props> = ({
   useEffect(() => {
     setElements(
       generateElements({
-        fretRowArray,
+        calculatedArray,
         boardHeight,
         noOfStrings,
         showOctave,
@@ -96,11 +77,7 @@ const BoardPosition: FC<Props> = ({
         tuningLength: tuning.length,
       })
     )
-  }, [fretRowArray])
-
-  useEffect(() => {
-    setFretRowArray(generateNotesArray(reverseTuning, noOfFrets, tonalKey))
-  }, [tonalKey])
+  }, [calculatedArray])
 
   return (
     <foreignObject width="100%" height="100%">

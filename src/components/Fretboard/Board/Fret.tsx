@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from 'react'
-import { HighlightStatus, TuningShape } from '../../../interfaces/tuning'
+import React, { FC } from 'react'
+import { TuningShape } from '../../../interfaces/tuning'
 import { stringifyNote } from '../../../modules/fretboard'
 import styled from 'styled-components'
 import cx from 'classnames'

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { PageContainer } from 'components/Container'
 import styled from 'styled-components'
-import { range } from 'ramda'
+import { range, reverse } from 'ramda'
 import { alternateTunings } from '../../data/alternateTunings'
 import Fretboard from 'components/Fretboard/FretBoard'
 import { fretboardHeight } from 'interfaces/enums'
+import { TuningShape } from 'interfaces/tuning'
+import { generateNotesArray } from 'modules/fretboard'
 
 const FormGroup = styled.div`
   display: flex;
@@ -28,6 +30,7 @@ const FormRow = styled.div`
   flex-direction: row;
 `
 
+const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
 
 const boardHeight = NO_OF_STRINGS * fretboardHeight.large
@@ -48,17 +51,33 @@ const generateFormField = (nrOfStrings: number) => {
   })
 }
 
-const ChordForm = () => {
+const ChordForm: FC = () => {
+  const onClickHandler = (e: any) => {
+    const selectedNote = e.currentTarget.dataset
+    const selectedString = e.currentTarget.parentElement.dataset
+    // const clonedArray = [...calculatedArray]
+    // clonedArray[selectedString.row][selectedNote.fretIndex].highlight =
+    //   HighlightStatus.selected
+    // setFretRowArray(clonedArray)
+    console.log('helo')
+  }
+
+  const reverseTuning: TuningShape[] = reverse(
+    alternateTunings.standard.tunings
+  )
+  const calculatedArray = generateNotesArray(reverseTuning, NO_OF_FRETS)
+
   return (
     <PageContainer>
       <div>Chord Form</div>
       <Fretboard
         boardHeight={boardHeight}
         noOfStrings={NO_OF_STRINGS}
-        noOfFrets={15}
+        noOfFrets={NO_OF_FRETS}
         tuning={alternateTunings.standard.tunings}
         showOctave={true}
-        clickable={true}
+        onClickHandler={onClickHandler}
+        calculatedArray={calculatedArray}
       />
       <FormRow>{generateFormField(6)}</FormRow>
     </PageContainer>

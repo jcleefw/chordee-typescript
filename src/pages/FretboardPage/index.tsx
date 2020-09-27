@@ -1,12 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import Fretboard from 'components/Fretboard/FretBoard'
 import { PageContainer } from 'components/Container'
 import { fretboardHeight } from 'interfaces/enums'
 import { alternateTunings } from 'data/alternateTunings'
 import PageHeader from './PageHeader'
-import { isEmpty } from 'ramda'
+import { isEmpty, reverse } from 'ramda'
 import { TonalKey } from 'interfaces/tonal'
 import styled from 'styled-components'
+import { generateNotesArray } from 'modules/fretboard'
+import { TuningShape } from '../../interfaces/tuning'
 
 const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
@@ -24,6 +26,37 @@ const ScalesDisplay = styled.div`
 const FretboardPage: FC = () => {
   const [tuning, setTuning] = useState(alternateTunings.standard)
   const [tonalKey, setTonalKey] = useState<TonalKey>({})
+  const reverseTuning: TuningShape[] = reverse(tuning.tunings)
+  const calculatedArray = generateNotesArray(
+    reverseTuning,
+    NO_OF_FRETS,
+    tonalKey
+  )
+
+  const generateFretboardElement = (newArray: any) => {
+    return (
+      <Fretboard
+        boardHeight={boardHeight}
+        noOfStrings={NO_OF_STRINGS}
+        noOfFrets={NO_OF_FRETS}
+        tuning={tuning.tunings}
+        showOctave={showOctave}
+        calculatedArray={newArray}
+      />
+    )
+  }
+
+  const [fretRowArray, setFretRowArray] = useState(calculatedArray)
+  const [fretBoardElement, setFretBoardElement] = useState(
+    generateFretboardElement(fretRowArray)
+  )
+  useEffect(() => {
+    setFretRowArray(generateNotesArray(reverseTuning, NO_OF_FRETS, tonalKey))
+  }, [tonalKey, tuning])
+
+  useEffect(() => {
+    setFretBoardElement(generateFretboardElement(fretRowArray))
+  }, [fretRowArray])
 
   const decorateScaleNotes = () => {
     if (tonalKey?.convertedScale) {
@@ -42,14 +75,7 @@ const FretboardPage: FC = () => {
           Notes on scale are: {decorateScaleNotes()}
         </ScalesDisplay>
       )}
-      <Fretboard
-        boardHeight={boardHeight}
-        noOfStrings={NO_OF_STRINGS}
-        noOfFrets={NO_OF_FRETS}
-        tuning={tuning.tunings}
-        showOctave={showOctave}
-        tonalKey={tonalKey}
-      />
+      {fretBoardElement}
     </PageContainer>
   )
 }

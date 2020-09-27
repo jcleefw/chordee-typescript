@@ -14,7 +14,8 @@ interface Props {
   tuning: TuningShape[]
   showOctave: boolean
   tonalKey?: TonalKey
-  clickable?: boolean
+  onClickHandler?: (e: any) => void
+  calculatedArray?: any
 }
 
 const FretBoard: FC<Props> = ({
@@ -24,7 +25,8 @@ const FretBoard: FC<Props> = ({
   noOfFrets,
   showOctave,
   tonalKey,
-  clickable,
+  onClickHandler,
+  calculatedArray,
 }) => (
   <div className="board" style={{ height: `${boardHeight}px` }}>
     <SvgWrapper>
@@ -43,7 +45,8 @@ const FretBoard: FC<Props> = ({
             noOfFrets,
             showOctave,
             tonalKey,
-            clickable,
+            onClickHandler,
+            calculatedArray,
           }}
         />
       </ViewPort>
