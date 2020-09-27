@@ -24,6 +24,9 @@ const Header = () => {
             <li>
               <Link to="/fretboard">Fretboard</Link>
             </li>
+            <li>
+              <Link to="/chord-finder">Chord Finder</Link>
+            </li>
           </ul>
         </div>
       </div>

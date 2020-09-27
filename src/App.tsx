@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './components/Header'
 import FretboardPage from './pages/FretboardPage'
 import HomePage from './pages/HomePage'
+import ChordForm from './pages/ChordForm/index'
 
 const App = () => {
   return (
@@ -18,9 +19,9 @@ const App = () => {
           <Route path="/fretboard">
             <FretboardPage />
           </Route>
-          {/* <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
+          <Route path="/chord-finder">
+            <ChordForm />
+          </Route>
         </Switch>
       </Router>
     </div>

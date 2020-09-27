@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import { TuningShape } from '../../interfaces/tuning'
-import { stringifyNote } from '../../modules/fretboard'
+import { TuningShape } from '../../../interfaces/tuning'
+import { stringifyNote } from '../../../modules/fretboard'
 import styled from 'styled-components'
 import cx from 'classnames'
 
