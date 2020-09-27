@@ -35,7 +35,7 @@ const boardHeight = NO_OF_STRINGS * fretboardHeight.large
 const generateFormField = (nrOfStrings: number) => {
   return range(0, nrOfStrings).map((index: number) => {
     return (
-      <FormGroup>
+      <FormGroup key={`string${index}`}>
         <label htmlFor={`string${index}`}>{`String ${index + 1}`}</label>
         <input
           maxLength={2}

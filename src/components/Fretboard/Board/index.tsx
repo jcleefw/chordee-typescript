@@ -25,7 +25,14 @@ export default ({
     <>
       <BoardGraphicStrings nrOfStrings={noOfStrings} nrOfFrets={noOfFrets} />
       <BoardPosition
-        {...{ boardHeight, noOfStrings, tuning, showOctave, tonalKey }}
+        {...{
+          boardHeight,
+          noOfStrings,
+          noOfFrets,
+          tuning,
+          showOctave,
+          tonalKey,
+        }}
       />
     </>
   )

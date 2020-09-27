@@ -53,6 +53,7 @@ export default ({ width, note, showOctave, index }: Props): ReactElement => {
       })}
       style={{ width: `${width}%` }}
       data-note={stringifyNote(note)}
+      data-octave={note.octave}
       highlight={note.highlight}
     >
       <FretBackground>{fretString.toUpperCase()}</FretBackground>

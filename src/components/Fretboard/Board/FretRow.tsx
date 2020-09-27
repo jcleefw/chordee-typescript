@@ -6,6 +6,7 @@ interface Props {
   boardHeight: fretboardHeight
   children?: ReactElement[]
   noOfStrings: number
+  stringIndex: number
 }
 
 const FretsRow = styled.div`
@@ -17,11 +18,16 @@ export default ({
   noOfStrings,
   boardHeight,
   children,
+  stringIndex,
 }: Props): ReactElement => {
   const rowHeight = boardHeight / noOfStrings
 
   return (
-    <FretsRow className="fret-row" style={{ height: `${rowHeight}px` }}>
+    <FretsRow
+      className="fret-row"
+      data-row={stringIndex}
+      style={{ height: `${rowHeight}px` }}
+    >
       {children}
     </FretsRow>
   )
