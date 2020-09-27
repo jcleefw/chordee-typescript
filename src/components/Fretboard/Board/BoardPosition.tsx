@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import { TuningShape } from '../../../interfaces/tuning'
-import { notesOnStringArray } from '../../../modules/fretboard'
+import React, { FC, useState, useEffect } from 'react'
+import { HighlightStatus, TuningShape } from '../../../interfaces/tuning'
+import { generateNotesArray } from '../../../modules/fretboard'
 import styled from 'styled-components'
 import { reverse } from 'ramda'
 import { fretboardHeight } from 'interfaces/enums'
@@ -15,6 +15,7 @@ interface Props {
   noOfStrings: number
   noOfFrets: number
   tonalKey?: TonalKey
+  clickable?: boolean
 }
 
 const FretsWrapper = styled.div`
@@ -22,52 +23,29 @@ const FretsWrapper = styled.div`
   flex-direction: column;
 `
 
-const generatFretNotes = (
-  notesArray: TuningShape[],
-  width: number,
-  stringIndex: number,
-  showOctave: boolean
-) => {
-  return notesArray.map((note, index) => (
-    <Fret
-      width={width}
-      note={note}
-      key={`note-${stringIndex}-${index}`}
-      showOctave={showOctave}
-      index={index}
-    />
-  ))
-}
+const generateElements = (props: any) => {
+  const width = 100 / props.tuningLength
 
-const generateFretRow = (
-  tuning: TuningShape[],
-  boardHeight: number,
-  showOctave: boolean,
-  noOfStrings: number,
-  noOfFrets: number,
-  tonalKey?: TonalKey
-) => {
-  return tuning.map((_, stringIndex) => {
-    const notesArray = notesOnStringArray({
-      rootNote: tuning[stringIndex],
-      noFrets: noOfFrets,
-      tonalKey: tonalKey,
-    })
-    const width = 100 / tuning.length
-    const fretNotes = generatFretNotes(
-      notesArray,
-      width,
-      stringIndex,
-      showOctave
-    )
+  return props.fretRowArray.map((row: any, stringIndex: number) => {
     return (
       <FretRow
-        boardHeight={boardHeight}
-        noOfStrings={noOfStrings}
+        boardHeight={props.boardHeight}
+        noOfStrings={props.noOfStrings}
         key={`row-${stringIndex}`}
         stringIndex={stringIndex}
       >
-        {fretNotes}
+        {row.map((note: any, index: number) => {
+          return (
+            <Fret
+              width={width}
+              note={note}
+              key={`note-${stringIndex}-${index}`}
+              showOctave={props.showOctave}
+              index={index}
+              onClickHandler={props.onClickHandler}
+            />
+          )
+        })}
       </FretRow>
     )
   })
@@ -80,20 +58,53 @@ const BoardPosition: FC<Props> = ({
   noOfStrings,
   noOfFrets,
   tonalKey,
+  clickable = false,
 }) => {
   const reverseTuning = reverse(tuning)
-  const stringNotesByRow = generateFretRow(
-    reverseTuning,
-    boardHeight,
-    showOctave,
-    noOfStrings,
-    noOfFrets,
-    tonalKey
+  let calculatedArray = generateNotesArray(reverseTuning, noOfFrets, tonalKey)
+
+  const onClickHandler = (e: any) => {
+    if (!clickable) return null
+    const selectedNote = e.currentTarget.dataset
+    const selectedString = e.currentTarget.parentElement.dataset
+    const clonedArray = [...fretRowArray]
+    clonedArray[selectedString.row][selectedNote.fretIndex].highlight =
+      HighlightStatus.selected
+    setFretRowArray(clonedArray)
+  }
+
+  const [fretRowArray, setFretRowArray] = useState(calculatedArray)
+  const [elements, setElements] = useState(
+    generateElements({
+      fretRowArray,
+      boardHeight,
+      noOfStrings,
+      showOctave,
+      onClickHandler,
+      tuningLength: tuning.length,
+    })
   )
+
+  useEffect(() => {
+    setElements(
+      generateElements({
+        fretRowArray,
+        boardHeight,
+        noOfStrings,
+        showOctave,
+        onClickHandler,
+        tuningLength: tuning.length,
+      })
+    )
+  }, [fretRowArray])
+
+  useEffect(() => {
+    setFretRowArray(generateNotesArray(reverseTuning, noOfFrets, tonalKey))
+  }, [tonalKey])
 
   return (
     <foreignObject width="100%" height="100%">
-      <FretsWrapper>{stringNotesByRow}</FretsWrapper>
+      <FretsWrapper>{elements}</FretsWrapper>
     </foreignObject>
   )
 }

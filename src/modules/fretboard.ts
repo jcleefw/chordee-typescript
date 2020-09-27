@@ -73,6 +73,20 @@ export const notesOnStringArray = (props: {
   return finalArray
 }
 
+export const generateNotesArray = (
+  tuning: TuningShape[],
+  noOfFrets: number,
+  tonalKey?: TonalKey
+) => {
+  return tuning.map((_, stringIndex) => {
+    return notesOnStringArray({
+      rootNote: tuning[stringIndex],
+      noFrets: noOfFrets,
+      tonalKey: tonalKey,
+    })
+  })
+}
+
 export const stringifyNote = (note: TuningShape, showOctave?: boolean) => {
   return `${note.note}${note.sharp ? '#' : ''}${note.flat ? '♭' : ''}${
     showOctave ? note.octave : ''

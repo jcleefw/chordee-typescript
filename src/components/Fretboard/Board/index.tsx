@@ -11,6 +11,7 @@ interface Props {
   tuning: TuningShape[]
   showOctave: boolean
   tonalKey?: TonalKey
+  clickable?: boolean
 }
 
 export default ({
@@ -20,6 +21,7 @@ export default ({
   tuning,
   showOctave,
   tonalKey,
+  clickable,
 }: Props): ReactElement => {
   return (
     <>
@@ -32,6 +34,7 @@ export default ({
           tuning,
           showOctave,
           tonalKey,
+          clickable,
         }}
       />
     </>

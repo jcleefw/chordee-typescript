@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 import { HighlightStatus, TuningShape } from '../../../interfaces/tuning'
 import { stringifyNote } from '../../../modules/fretboard'
 import styled from 'styled-components'
@@ -9,6 +9,7 @@ interface Props {
   note: TuningShape
   showOctave: boolean
   index: number
+  onClickHandler: (e: any) => void
 }
 
 type FretProp = {
@@ -45,9 +46,9 @@ const Fret: FC<Props> = ({
   note,
   showOctave,
   index,
+  onClickHandler,
 }) => {
   const fretString = stringifyNote(note, showOctave)
-
   const noteDetails = note
 
   return (
@@ -64,6 +65,7 @@ const Fret: FC<Props> = ({
       data-octave={noteDetails.octave}
       data-fret-index={index}
       highlight={noteDetails.highlight}
+      onClick={onClickHandler}
     >
       <FretBackground>{fretString.toUpperCase()}</FretBackground>
     </FretDiv>

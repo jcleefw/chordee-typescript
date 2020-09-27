@@ -1,7 +1,7 @@
 $orange: #ffc47ff7;
 $green: #94e594;
 $ash-gray: #eee;
-$blue: blue;
+$blue: #6dd6ff;
 
 .--root span {
   background: $orange;
@@ -17,7 +17,7 @@ $blue: blue;
 
 .fret-row {
   .fret-note.--fret-mark {
-    &:not(.highlight):not(.--scale):not(.--root) span {
+    &:not(.highlight):not(.--scale):not(.--root):not(.--selected) span {
       background: $ash-gray;
     }
 
@@ -36,7 +36,7 @@ $blue: blue;
   &:first-child,
   &:last-child {
     .fret-note.--fret-mark {
-      &:not(.highlight):not(.--scale):not(.--root) span {
+      &:not(.highlight):not(.--scale):not(.--root):not(.--selected) span {
         background: none;
       }
     }

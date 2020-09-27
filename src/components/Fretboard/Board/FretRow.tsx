@@ -7,6 +7,7 @@ interface Props {
   children?: ReactElement[]
   noOfStrings: number
   stringIndex: number
+  onClickHandler?: (e: any) => void
 }
 
 const FretsRowDiv = styled.div`
@@ -19,6 +20,7 @@ const FretsRow: FC<Props> = ({
   boardHeight,
   children,
   stringIndex,
+  onClickHandler,
 }) => {
   const rowHeight = boardHeight / noOfStrings
 
@@ -27,6 +29,7 @@ const FretsRow: FC<Props> = ({
       className="fret-row"
       data-row={stringIndex}
       style={{ height: `${rowHeight}px` }}
+      onClick={onClickHandler}
     >
       {children}
     </FretsRowDiv>
