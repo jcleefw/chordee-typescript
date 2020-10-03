@@ -9,6 +9,7 @@ import { TonalKey } from 'interfaces/tonal'
 import styled from 'styled-components'
 import { generateNotesArray } from 'modules/fretboard'
 import { TuningShape } from '../../interfaces/tuning'
+import { populateHighlightStatusForScales } from './helper'
 
 const NO_OF_FRETS = 15
 const NO_OF_STRINGS = 6
@@ -27,11 +28,12 @@ const FretboardPage: FC = () => {
   const [tuning, setTuning] = useState(alternateTunings.standard)
   const [tonalKey, setTonalKey] = useState<TonalKey>({})
   const reverseTuning: TuningShape[] = reverse(tuning.tunings)
-  const calculatedArray = generateNotesArray(
-    reverseTuning,
-    NO_OF_FRETS,
-    tonalKey
-  )
+  const calculatedArray = generateNotesArray({
+    tuning: reverseTuning,
+    noOfFrets: NO_OF_FRETS,
+    tonalKey,
+    highlightFn: populateHighlightStatusForScales,
+  })
 
   const generateFretboardElement = (newArray: any) => {
     return (
@@ -51,7 +53,14 @@ const FretboardPage: FC = () => {
     generateFretboardElement(fretRowArray)
   )
   useEffect(() => {
-    setFretRowArray(generateNotesArray(reverseTuning, NO_OF_FRETS, tonalKey))
+    setFretRowArray(
+      generateNotesArray({
+        tuning: reverseTuning,
+        noOfFrets: NO_OF_FRETS,
+        tonalKey,
+        highlightFn: populateHighlightStatusForScales,
+      })
+    )
   }, [tonalKey, tuning])
 
   useEffect(() => {

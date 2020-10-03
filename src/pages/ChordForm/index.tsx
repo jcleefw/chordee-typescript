@@ -65,7 +65,10 @@ const ChordForm: FC = () => {
   const reverseTuning: TuningShape[] = reverse(
     alternateTunings.standard.tunings
   )
-  const calculatedArray = generateNotesArray(reverseTuning, NO_OF_FRETS)
+  const calculatedArray = generateNotesArray({
+    tuning: reverseTuning,
+    noOfFrets: NO_OF_FRETS,
+  })
 
   return (
     <PageContainer>

@@ -19,31 +19,19 @@ export const stringOffset = (nrOfStrings: any) => (str: number) =>
 export const stringCenter = (nrOfStrings: any) => (str: any) =>
   stringOffset(nrOfStrings)(str) + stringHeight(nrOfStrings) / 2
 
-export const populateHighlightStatus = (
-  scale: Array<string>,
-  currentNote: string
-) => {
-  const indexOfNote = scale?.indexOf(currentNote.toUpperCase())
-  if (indexOfNote === 0) {
-    return HighlightStatus.root
-  } else if (indexOfNote > 0) {
-    return HighlightStatus.scale
-  } else {
-    return null
-  }
-}
-
-const addToArray = (
-  startIndex: number,
-  octaveCount: number,
-  tonalScale: Array<string>
-) => {
+const addToArray = (props: {
+  startIndex: number
+  octaveCount: number
+  tonalScale?: Array<string>
+  highlightFn?: any
+}) => {
+  const { startIndex, octaveCount, tonalScale, highlightFn } = props
   const currentNote: string = notesArray[startIndex]
 
   return {
     note: currentNote,
     octave: octaveCount,
-    highlight: populateHighlightStatus(tonalScale, currentNote),
+    highlight: highlightFn ? highlightFn(tonalScale, currentNote) : '',
   }
 }
 
@@ -51,8 +39,9 @@ export const notesOnStringArray = (props: {
   rootNote: TuningShape
   noFrets: number
   tonalKey?: TonalKey
+  highlightFn?: any
 }) => {
-  const { rootNote, noFrets, tonalKey } = props
+  const { rootNote, noFrets, tonalKey, highlightFn } = props
   const rootNoteIndex = notesArray.indexOf(stringifyNote(rootNote))
   const tonalScale = tonalKey?.convertedScale
 
@@ -61,7 +50,14 @@ export const notesOnStringArray = (props: {
   let finalArray: TuningShape[] = []
 
   times(() => {
-    finalArray.push(addToArray(startIndex, octaveCount, tonalScale))
+    finalArray.push(
+      addToArray({
+        startIndex,
+        octaveCount,
+        tonalScale,
+        highlightFn,
+      })
+    )
     if (startIndex < 12 - 1) {
       startIndex += 1
     } else {
@@ -73,16 +69,19 @@ export const notesOnStringArray = (props: {
   return finalArray
 }
 
-export const generateNotesArray = (
-  tuning: TuningShape[],
-  noOfFrets: number,
+export const generateNotesArray = (props: {
+  tuning: TuningShape[]
+  noOfFrets: number
   tonalKey?: TonalKey
-) => {
+  highlightFn?: any
+}) => {
+  const { tuning, noOfFrets, tonalKey, highlightFn } = props
   return tuning.map((_, stringIndex) => {
     return notesOnStringArray({
       rootNote: tuning[stringIndex],
       noFrets: noOfFrets,
       tonalKey: tonalKey,
+      highlightFn,
     })
   })
 }
