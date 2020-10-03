@@ -27,11 +27,22 @@ const addToArray = (props: {
 }) => {
   const { startIndex, octaveCount, tonalScale, highlightFn } = props
   const currentNote: string = notesArray[startIndex]
+  const highlightCall = () => {
+    if (Array.isArray(highlightFn)) {
+      return highlightFn[0].apply(null, highlightFn[1])
+    } else if (typeof highlightFn === 'function') {
+      // default scenario for usage of loading highlighted for scales
+      return highlightFn.apply(null, [tonalScale, currentNote])
+    } else {
+      // when highlightFn is not pass-in
+      return ''
+    }
+  }
 
   return {
     note: currentNote,
     octave: octaveCount,
-    highlight: highlightFn ? highlightFn(tonalScale, currentNote) : '',
+    highlight: highlightFn ? highlightCall() : '',
   }
 }
 
