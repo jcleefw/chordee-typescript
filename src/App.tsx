@@ -12,8 +12,8 @@ const App = () => {
         <Header />
 
         <Switch>
-          <Route exact path="/">
-            <HomePage />
+          <Route path="/">
+            <FretboardPage />
           </Route>
           <Route path="/fretboard">
             <FretboardPage />
