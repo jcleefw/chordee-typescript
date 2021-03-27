@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/chordee-typescript/static/css/main.b3dc4cd6.chunk.css",
+    "main.js": "/chordee-typescript/static/js/main.50b3e4ea.chunk.js",
+    "main.js.map": "/chordee-typescript/static/js/main.50b3e4ea.chunk.js.map",
+    "runtime-main.js": "/chordee-typescript/static/js/runtime-main.096c864d.js",
+    "runtime-main.js.map": "/chordee-typescript/static/js/runtime-main.096c864d.js.map",
+    "static/js/2.2def0131.chunk.js": "/chordee-typescript/static/js/2.2def0131.chunk.js",
+    "static/js/2.2def0131.chunk.js.map": "/chordee-typescript/static/js/2.2def0131.chunk.js.map",
+    "index.html": "/chordee-typescript/index.html",
+    "precache-manifest.8c84a4622a184e0cb7ca8592620d03bd.js": "/chordee-typescript/precache-manifest.8c84a4622a184e0cb7ca8592620d03bd.js",
+    "service-worker.js": "/chordee-typescript/service-worker.js",
+    "static/css/main.b3dc4cd6.chunk.css.map": "/chordee-typescript/static/css/main.b3dc4cd6.chunk.css.map",
+    "static/js/2.2def0131.chunk.js.LICENSE.txt": "/chordee-typescript/static/js/2.2def0131.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.096c864d.js",
+    "static/js/2.2def0131.chunk.js",
+    "static/css/main.b3dc4cd6.chunk.css",
+    "static/js/main.50b3e4ea.chunk.js"
+  ]
+}
