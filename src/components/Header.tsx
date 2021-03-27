@@ -19,10 +19,10 @@ const Header = () => {
         <div className="collapsible-body">
           <ul className="inline">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/chordee-typescript/">Home</Link>
             </li>
             <li>
-              <Link to="/fretboard">Fretboard</Link>
+              <Link to="/chordee-typescript/fretboard">Fretboard</Link>
             </li>
           </ul>
         </div>

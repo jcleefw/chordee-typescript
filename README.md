@@ -10,3 +10,6 @@ More info TBA
 
 - build for production
   `yarn build`
+
+- to deploy to github pages
+  `yarn deploy`
